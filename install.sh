@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create config file
-if [ -f ~/scripts/prism/config/env ]
+if [ -f ~/scripts/prysm/config/env ]
  then
    echo "Config file found."
  else
@@ -18,10 +18,10 @@ read -p "URL" url
 # wipe
 rm -r ~/.pryzm
 rm -r /pryzm
-md ~/pryzm
+mkdir ~/pryzm
 cd ~/pryzm
 wget $URL
-  
+ y 
 # Set node configuration
 pryzm config chain-id indigo-1 $MONIKER
 #pryzm config keyring-backend test
