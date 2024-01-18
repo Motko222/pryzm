@@ -6,7 +6,7 @@ echo   "---- SUMMARY -----------------------------------------------------------
 printf "%-12s %9s %9s %9s\n" Id Balance Delegated Reward
 echo   "---------------------------------------------------------------------------------------"
 
-pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep -v master >~/scripts/pryzm/config/keys
+echo $PWD | pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep -v master >~/scripts/pryzm/config/keys
 
 cat ~/scripts/pryzm/config/keys | while read line
 do
