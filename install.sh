@@ -13,14 +13,14 @@ if [ -f ~/scripts/prysm/config/env ]
 fi
 
 # Download binary
-read -p "URL" url
+read -p "URL? " url
 
 # wipe
 rm -r ~/.pryzm
 rm -r /pryzm
 mkdir ~/pryzm
 cd ~/pryzm
-wget $URL
+wget $url
  y 
 # Set node configuration
 pryzm config chain-id indigo-1 $MONIKER
