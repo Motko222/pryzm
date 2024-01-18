@@ -1,23 +1,22 @@
 #!/bin/bash
 
 source ~/scripts/pryzm/config/env
-cd ~/pryzm
 json=$(curl -s localhost:26657/status | jq .result.sync_info)
 
 pid=$(pgrep pryzmd)
-ver=$(./pryzmd version)
-network=$(./pryzmd status | jq -r .NodeInfo.network)
+ver=$(pryzmd version)
+network=$(pryzmd status | jq -r .NodeInfo.network)
 type="validator"
 foldersize1=$(du -hs ~/.pryzm | awk '{print $1}')
 foldersize2=$(du -hs ~/pryzm | awk '{print $1}')
 latestBlock=$(echo $json | jq -r .latest_block_height)
 catchingUp=$(echo $json | jq -r .catching_up)
-votingPower=$(./pryzmd status 2>&1 | jq -r .ValidatorInfo.VotingPower)
-delegators=$(./pryzmd query staking delegations-to $VALOPER -o json | jq '.delegation_responses | length')
-jailed=$(./pryzmd query staking validator $VALOPER -o json | jq -r .jailed)
+votingPower=$(pryzmd status 2>&1 | jq -r .ValidatorInfo.VotingPower)
+delegators=$(pryzmd query staking delegations-to $VALOPER -o json | jq '.delegation_responses | length')
+jailed=$(pryzmd query staking validator $VALOPER -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
-tokens=$(./pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
-balance=$(./pryzmd query bank balances $WALLET | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
+tokens=$(pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
+balance=$(pryzmd query bank balances $WALLET | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
 
 if $catchingUp
  then 
