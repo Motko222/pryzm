@@ -7,4 +7,4 @@ else
  key=$1
 fi
 
-pryzmd keys add $key --disabled-password
+pryzmd keys add $key
