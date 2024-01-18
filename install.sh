@@ -5,9 +5,9 @@ if [ -f ~/scripts/pryzm/config/env ]
  then
    echo "Config file found."
  else
-   read -p "Wallet name? " WALLET
+   read -p "Key name? " KEY
    read -p "Moniker name? " MONIKER
-   echo "WALLET="$WALLET > ~/scripts/pryzm/config/env
+   echo "KEY="$KEY > ~/scripts/pryzm/config/env
    echo "MONIKER="$MONIKER >> ~/scripts/pryzm/config/env
    echo "Config file created."
 fi
