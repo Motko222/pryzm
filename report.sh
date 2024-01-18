@@ -17,8 +17,7 @@ delegators=$(./pryzmd query staking delegations-to $VALOPER -o json | jq '.deleg
 jailed=$(./pryzmd query staking validator $VALOPER -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
 tokens=$(./pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
-wallet=$(./pryzmd keys show $WALLET -a)
-balance=$(./pryzmd query bank balances $wallet | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
+balance=$(./pryzmd query bank balances $WALLET | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
 
 if $catchingUp
  then 
