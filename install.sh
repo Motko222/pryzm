@@ -66,7 +66,7 @@ After=network-online.target
 
 [Service]
 User=root
-ExecStart=/root/pryzm/pryzmd start
+ExecStart=/usr/local/bin/pryzmd start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
