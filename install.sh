@@ -20,8 +20,7 @@ rm -r ~/.pryzm
 rm -r /pryzm
 mkdir ~/pryzm
 cd ~/pryzm
-wget $url
-mv $(ls ~/pryzm | grep pryzmd) pryzmd
+wget $url -O pryzmd
 chmod +x pryzmd
 
 # Set node configuration
