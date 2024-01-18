@@ -15,12 +15,10 @@ fi
 # Download binary
 read -p "URL" url
 
-if [ -d ~/pryzm ]
-then
-  md ~/pryzm
-else
-  rm  ~/pryzm/pryzmd
-fi
+# wipe
+rm -r ~/.pryzm
+rm -r /pryzm
+md ~/pryzm
 cd ~/pryzm
 wget $URL
   
