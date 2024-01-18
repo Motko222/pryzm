@@ -42,7 +42,7 @@ sed -i -e "s|^seeds *=.*|seeds = \"ff17ca4f46230306412ff5c0f5e85439ee5136f0@test
 #sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$peers\"|" $HOME/.pryzm/config/config.toml
 
 # Set minimum gas price
-#sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.00001stake\"|" $HOME/.pryzm/config/app.toml
+sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.015upryzm, 0.01factory/pryzm15k9s9p0ar0cx27nayrgk6vmhyec3lj7vkry7rx/uusdsim\"|" $HOME/.pryzm/config/app.toml
 
 # Set pruning
 sed -i \
