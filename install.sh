@@ -17,19 +17,17 @@ read -p "URL? " url
 
 # wipe
 rm -r ~/.pryzm
-rm -r /pryzm
-mkdir ~/pryzm
-cd ~/pryzm
 wget $url -O pryzmd
 chmod +x pryzmd
+mv pryzmd /usr/local/bin/pryzmd
 
 # Set node configuration
-./pryzmd config chain-id indigo-1
+pryzmd config chain-id indigo-1
 #pryzm config keyring-backend test
-./pryzmd config node tcp://localhost:26656
+pryzmd config node tcp://localhost:26656
 
 # Initialize the node
-./pryzmd init $MONIKER --chain-id indigo-1
+pryzmd init $MONIKER --chain-id indigo-1
 
 # Download genesis
 curl -Ls https://storage.googleapis.com/pryzm-zone/indigo-1/genesis.json > $HOME/.pryzm/config/genesis.json
