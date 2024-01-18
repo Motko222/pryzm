@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create config file
-if [ -f ~/scripts/prysm/config/env ]
+if [ -f ~/scripts/pryzm/config/env ]
  then
    echo "Config file found."
  else
