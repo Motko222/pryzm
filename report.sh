@@ -4,11 +4,11 @@ source ~/scripts/pryzm/config/env
 cd ~/pryzm
 json=$(curl -s localhost:26657/status | jq .result.sync_info)
 
-pid=$(pgrep pryzm)
+pid=$(pgrep pryzmd)
 ver=$(./pryzmd version)
 network=$(./pryzmd status | jq -r .NodeInfo.network)
 type="validator"
-foldersize1=$(du -hs ~/.pryzmd | awk '{print $1}')
+foldersize1=$(du -hs ~/.pryzm | awk '{print $1}')
 foldersize2=$(du -hs ~/pryzm | awk '{print $1}')
 latestBlock=$(echo $json | jq -r .latest_block_height)
 catchingUp=$(echo $json | jq -r .catching_up)
