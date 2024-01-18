@@ -24,7 +24,7 @@ wget $url -O pryzmd
 chmod +x pryzmd
 
 # Set node configuration
-./pryzmd config chain-id indigo-1 $MONIKER
+./pryzmd config chain-id indigo-1
 #pryzm config keyring-backend test
 ./pryzmd config node tcp://localhost:26656
 
