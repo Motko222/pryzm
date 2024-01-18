@@ -24,12 +24,12 @@ wget $url -O pryzmd
 chmod +x pryzmd
 
 # Set node configuration
-pryzm config chain-id indigo-1 $MONIKER
+./pryzm config chain-id indigo-1 $MONIKER
 #pryzm config keyring-backend test
-pryzm config node tcp://localhost:26656
+./pryzm config node tcp://localhost:26656
 
 # Initialize the node
-pryzm init $MONIKER --chain-id indigo-1
+./pryzm init $MONIKER --chain-id indigo-1
 
 # Download genesis
 curl -Ls https://storage.googleapis.com/pryzm-zone/indigo-1/genesis.json > $HOME/.pryzm/config/genesis.json
