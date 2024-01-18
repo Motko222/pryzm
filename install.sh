@@ -21,7 +21,9 @@ rm -r /pryzm
 mkdir ~/pryzm
 cd ~/pryzm
 wget $url
- y 
+mv $(ls ~/pryzm | grep pryzmd) pryzmd
+chmod +x pryzmd
+
 # Set node configuration
 pryzm config chain-id indigo-1 $MONIKER
 #pryzm config keyring-backend test
