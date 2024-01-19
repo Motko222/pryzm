@@ -8,3 +8,4 @@ else
 fi
 
 pryzmd keys add $key
+pryzmd keys show $key --bech val
