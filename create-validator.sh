@@ -2,7 +2,7 @@
 
 source ~/scripts/pryzm/config/env
 
-pruzmd tx checkpointing create-validator \
+pryzmd tx checkpointing create-validator \
 --amount 20000000upryzm \
 --pubkey $(pryzmd tendermint show-validator) \
 --moniker $MONIKER \
