@@ -33,7 +33,7 @@ pryzmd init $MONIKER --chain-id indigo-1
 curl -Ls https://storage.googleapis.com/pryzm-zone/indigo-1/genesis.json > $HOME/.pryzm/config/genesis.json
 
 # Add seeds
-sed -i -e "s|^seeds *=.*|seeds = \"ff17ca4f46230306412ff5c0f5e85439ee5136f0@testnet-seed.pryzm.zone:26656\"|" $HOME/.pryzm/config/config.toml
+sed -i -e "s|^seeds *=.*|seeds = \"ff17ca4f46230306412ff5c0f5e85439ee5136f0@testnet-seed.pryzm.zone:26656,d1d43cc7c7aef715957289fd96a114ecaa7ba756@testnet-seeds.nodex.one:23210\"|" $HOME/.pryzm/config/config.toml
 
 # Add persistent_peers
 #peers=""
