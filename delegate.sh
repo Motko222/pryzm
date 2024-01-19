@@ -3,9 +3,9 @@ source ~/scripts/pryzm/config/env
 
 if [ -z $1 ]
 then
- read -p "From wallet ? " wallet
+ read -p "From key ? " key
 else
- wallet=$1
+ key=$1
 fi
 
 if [ -z $2 ]
@@ -24,5 +24,5 @@ fi
 
 amount=$(( $amount * 1000000 ))upryzm
 
-babylond tx staking delegate $valoper $amount --from $wallet \
+babylond tx staking delegate $valoper $amount --from $key \
  --chain-id indigo-1 --gas-prices 0.1upryzm --gas-adjustment 1.5 --gas auto -y
