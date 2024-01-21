@@ -10,7 +10,8 @@ fi
 
 if [ -z $2 ]
 then
- read -p "To valoper ? " valoper
+ read -p "To valoper (blank to delegate to this valoper) ? " valoper
+ if [ -z $valoper ]; then valoper=$(pryzmd keys show $KEY -bech val); fi
 else
  valoper=$2
 fi
