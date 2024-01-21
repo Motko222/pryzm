@@ -24,5 +24,5 @@ fi
 
 amount=$(( $amount * 1000000 ))upryzm
 
-babylond tx staking delegate $valoper $amount --from $key \
+pryzmd tx staking delegate $valoper $amount --from $key \
  --chain-id indigo-1 --gas-prices 0.1upryzm --gas-adjustment 1.5 --gas auto -y
