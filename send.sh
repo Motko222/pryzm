@@ -26,4 +26,4 @@ fi
 #amount=$(echo $amount | awk '{print  $1 * 1000000}' )ubbn
 
 pryzmd tx bank send $from $to $amount \
-   --gas-prices 0.1pryzm --gas-adjustment 1.5 --gas auto -y
+   --gas-prices 0.1upryzm --gas-adjustment 1.5 --gas auto -y
