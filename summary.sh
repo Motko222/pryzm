@@ -3,7 +3,7 @@
 source ~/scripts/pryzm/config/env
 
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%-12s %9s %9s %9s\n" Id Balance Delegated Reward
+printf "%-12s %9s %9s %-30s\n" Id Balance Delegated Reward
 echo   "---------------------------------------------------------------------------------------"
 
 echo $PWD | pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep -v master >~/scripts/pryzm/config/keys
@@ -20,6 +20,6 @@ do
    stake=$(pryzmd query staking delegation $wallet $VALOPER 2>/dev/null \
      | grep amount | awk '{print $2}' | sed 's/"//g' | awk '{print $1/1000000}' )
 
-   printf "%-12s %9s %9s %9s\n" \
+   printf "%-12s %9s %9s %14s %14s\n" \
       $id $balance $stake $rewards
 done
