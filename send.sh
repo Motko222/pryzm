@@ -16,6 +16,8 @@ else
  to=$2
 fi
 
+echo "Denoms: upryzm   factory/pryzm15k9s9p0ar0cx27nayrgk6vmhyec3lj7vkry7rx/uusdsim"
+
 if [ -z $3 ]
 then
  read -p "Amount (incl. denom) ? " amount
