@@ -17,5 +17,5 @@ pryzmd tx staking create-validator \
 --from $KEY \
 --gas-adjustment 1.4 \
 --gas auto \
---fees 10upryzm \
+--fees 4000upryzm \
 -y
