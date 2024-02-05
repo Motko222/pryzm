@@ -3,15 +3,16 @@ source ~/scripts/pryzm/config/env
 
 if [ -z $1 ]
 then
- read -p "From key ? " key
+ read -p "From key (default $KEY) ? " key
+ if [ -z $key ]; then key=$KEY; fi
 else
  key=$1
 fi
 
 if [ -z $2 ]
 then
- read -p "To valoper (blank to delegate to this valoper) ? " valoper
- if [ -z $valoper ]; then valoper=$(echo $PWD | pryzmd keys show $KEY --bech val | head -1 | awk '{print $3}'); fi
+ read -p "To valoper (default $VALOPER) ? " valoper
+ if [ -z $valoper ]; then valoper=$VALOPER; fi
 else
  valoper=$2
 fi
