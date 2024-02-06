@@ -9,6 +9,10 @@ else
  key=$1
 fi
 
+wallet=$(echo $PWD | pryzmd keys show $key --output json | jq -r .address)
+balance=$(pryzmd query bank balances $wallet -o json | jq -r .balances[].amount | awk '{print $1/1000000}')
+echo "Balance: $balance pryzm"
+
 if [ -z $2 ]
 then
  read -p "To valoper (default $VALOPER) ? " valoper
