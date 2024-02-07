@@ -18,7 +18,8 @@ if [ -z $jailed ]; then jailed=false; fi
 tokens=$(pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
 balance=$(pryzmd query bank balances $WALLET -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount | awk '{print $1/1000000}')
-active=$(pryzmd query tendermint-validator-set | grep -c $PUBKEY)
+pubkey=$(pryzmd tendermint show-validator --log_format json | jq -r .key)
+active=$(pryzmd query tendermint-validator-set | grep -c $pubkey)
 threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
 
 if $catchingUp
@@ -55,7 +56,7 @@ echo "id=$MONIKER"
 echo "key=$KEY"
 echo "wallet=$WALLET"
 echo "valoper=$VALOPER"
-echo "pubkey=$PUBKEY"
+echo "pubkey=$pubkey"
 echo "catchingUp=$catchingUp"
 echo "jailed=$jailed"
 echo "active=$active"
