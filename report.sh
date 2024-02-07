@@ -26,7 +26,7 @@ if $catchingUp
   note="height=$latestBlock"
  else 
   status="ok"
-  note="act $active | del $delegators | vp $tokens | bal $balance"
+  note="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
 fi
 
 if $jailed
@@ -61,6 +61,6 @@ echo "active=$active"
 echo "height=$latestBlock"
 echo "votingPower=$votingPower"
 echo "tokens=$tokens"
+echo "threshold=$threshold"
 echo "delegators=$delegators"
 echo "balance=$balance"
-echo "bls="$bls
