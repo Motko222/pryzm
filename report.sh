@@ -17,6 +17,8 @@ jailed=$(pryzmd query staking validator $VALOPER -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
 tokens=$(pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
 balance=$(pryzmd query bank balances $WALLET | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
+active=$(pryzmd query tendermint-validator-set | grep -c $PUBKEY)
+threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
 
 if $catchingUp
  then 
@@ -24,7 +26,7 @@ if $catchingUp
   note="height=$latestBlock"
  else 
   status="ok"
-  note="del $delegators | vp $tokens | bal $balance | bls $(date -d $bls +'%y-%m-%d %H:%M')"
+  note="act $active | del $delegators | vp $tokens | bal $balance"
 fi
 
 if $jailed
@@ -51,8 +53,11 @@ echo "folder2=$foldersize2"
 echo "id=$MONIKER" 
 echo "key=$KEY"
 echo "wallet=$WALLET"
+echo "valoper=$VALOPER"
+echo "pubkey=$PUBKEY"
 echo "catchingUp=$catchingUp"
 echo "jailed=$jailed"
+echo "active=$active"
 echo "height=$latestBlock"
 echo "votingPower=$votingPower"
 echo "tokens=$tokens"
