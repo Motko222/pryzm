@@ -16,7 +16,8 @@ delegators=$(pryzmd query staking delegations-to $VALOPER -o json | jq '.delegat
 jailed=$(pryzmd query staking validator $VALOPER -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
 tokens=$(pryzmd query staking validator $VALOPER -o json | jq -r .tokens | awk '{print $1/1000000}')
-balance=$(pryzmd query bank balances $WALLET | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1 / 1000000}' )
+balance=$(pryzmd query bank balances $WALLET -o json 2>/dev/null \
+      | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount | awk '{print $1/1000000}')
 active=$(pryzmd query tendermint-validator-set | grep -c $PUBKEY)
 threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
 
