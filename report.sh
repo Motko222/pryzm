@@ -14,13 +14,13 @@ catchingUp=$(echo $json | jq -r .catching_up)
 votingPower=$(pryzmd status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PWD | pryzmd keys show $KEY -a)
 valoper=$(echo $PWD | pryzmd keys show $KEY -a --bech val)
+pubkey=$(pryzmd tendermint show-validator --log_format json | jq -r .key)
 delegators=$(pryzmd query staking delegations-to $valoper -o json | jq '.delegation_responses | length')
 jailed=$(pryzmd query staking validator $valoper -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
 tokens=$(pryzmd query staking validator $valoper -o json | jq -r .tokens | awk '{print $1/1000000}')
 balance=$(pryzmd query bank balances $wallet -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount | awk '{print $1/1000000}')
-pubkey=$(pryzmd tendermint show-validator --log_format json | jq -r .key)
 active=$(pryzmd query tendermint-validator-set | grep -c $pubkey)
 threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
 
