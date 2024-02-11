@@ -42,7 +42,7 @@ fi
 if [ -z $5 ]
 then
  read -p "Token out (upryzm) ? " token_out
- if [ -z $token_in ]; then token_out=upryzm; fi
+ if [ -z $token_out ]; then token_out=upryzm; fi
 else
  token_out=$5
 fi
