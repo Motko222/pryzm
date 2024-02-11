@@ -47,5 +47,5 @@ else
  token_out=$5
 fi
 
-echo $PWD | pryzmd tx amm single-swap '{ "amount": "'$amount'", "pool_id": '$pool_id', "token_in": "'$token_in'", "token_out": "'$token_out'" }' \
+echo $PWD | pryzmd tx amm single-swap '{ "amount": "'$amount'", "pool_id": "'$pool_id'", "token_in": "'$token_in'", "token_out": "'$token_out'" }' \
    --from $key --gas-prices 0.1upryzm --gas-adjustment 1.5 --gas auto -y
