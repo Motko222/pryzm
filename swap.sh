@@ -11,9 +11,9 @@ fi
 
 wallet=$(echo $PWD | pryzmd keys show $key -a)
 balance1=$(pryzmd query bank balances $wallet -o json 2>/dev/null \
-      | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount')
+      | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount)
 balance2=$(pryzmd query bank balances $wallet -o json 2>/dev/null \
-      | jq -r '.balances[] | select(.denom=="factory/pryzm15k9s9p0ar0cx27nayrgk6vmhyec3lj7vkry7rx/uusdsim")' | jq -r .amount')
+      | jq -r '.balances[] | select(.denom=="factory/pryzm15k9s9p0ar0cx27nayrgk6vmhyec3lj7vkry7rx/uusdsim")' | jq -r .amount)
 echo "Balance: $balance1 upryzm, $balance2 uusdsim"
 
 if [ -z $2 ]
