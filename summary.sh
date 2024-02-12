@@ -2,11 +2,13 @@
 
 source ~/scripts/pryzm/config/env
 
+read -p "Filter? " filter
+echo
 echo   "---- SUMMARY --------------------------------------------------------------------------"
 printf "%12s %12s %12s %12s %12s %12s\n" Id Balance1 Balance2 Delegated1 Rewards1 Rewards2
 echo   "---------------------------------------------------------------------------------------"
 
-echo $PWD | pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep -v master >~/scripts/pryzm/config/keys
+echo $PWD | pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep $filter | grep -v master >~/scripts/pryzm/config/keys
 
 cat ~/scripts/pryzm/config/keys | while read line
 do
