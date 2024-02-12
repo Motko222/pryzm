@@ -16,8 +16,9 @@ echo "Balance: $balance1 pryzm"
 
 if [ -z $2 ]
 then
- read -p "To valoper (default $VALOPER) ? " valoper
- if [ -z $valoper ]; then valoper=$VALOPER; fi
+ def_valoper=$(echo $PWD | pryzmd keys show $key -a --bech val)
+ read -p "To valoper (default $def_valoper) ? " valoper
+ if [ -z $valoper ]; then valoper=$def_valoper; fi
 else
  valoper=$2
 fi
