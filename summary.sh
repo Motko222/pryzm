@@ -5,7 +5,7 @@ source ~/scripts/pryzm/config/env
 read -p "Filter? " filter
 echo
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%12s %12s %12s %12s %12s %12s\n" Id Balance1 Balance2 Delegated1 Rewards1 Rewards2
+printf "%12s %12s %12s %12s %12s %12s\n" Id Balance Balance2 Delegated1 Rewards1 Rewards2 Seq
 echo   "---------------------------------------------------------------------------------------"
 
 echo $PWD | pryzmd keys list | grep -E 'name|address' | sed 's/- address: //g' | sed 's/  name: //g' | paste - - | grep $filter | grep -v master >~/scripts/pryzm/config/keys
@@ -29,12 +29,14 @@ do
    delegated1=$(pryzmd query staking delegation $wallet $VALOPER -o json 2>/dev/null \
       | jq -r .balance.amount | awk '{print $1/1000000}')
 
+   seq=$(pryzmd query account pryzm1cudm3sajdfy9m8aehswgcvh06ky235wye9xpk5 -o json | jq -r .sequence)
+
   if [ -z $balance1 ];   then balance1=0; fi
   if [ -z $balance2 ];   then balance2=0; fi
   if [ -z $delegated1 ]; then delegted1=0; fi
   if [ -z $rewards1 ];   then rewards1=0; fi
   if [ -z $rewards2 ];   then rewards2=0; fi
 
-   printf "%12s %12s %12s %12s %12s %12s\n" \
-      $id $balance1 $balance2 $delegated1 $rewards1 $rewards2
+   printf "%12s %12s %12s %12s %12s %12s %4s\n" \
+      $id $balance1 $balance2 $delegated1 $rewards1 $rewards2 $seq
 done
