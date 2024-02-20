@@ -4,7 +4,7 @@ source ~/scripts/pryzm/config/env
 
 if [ -z $1 ]
 then
- read -p "From wallet ? " from
+ read -p "From key or wallet ? " from
 else
  from=$1
 fi
@@ -18,14 +18,7 @@ fi
 
 echo "Denoms: upryzm   factory/pryzm15k9s9p0ar0cx27nayrgk6vmhyec3lj7vkry7rx/uusdsim"
 
-if [ -z $3 ]
-then
- read -p "Amount (incl. denom) ? " amount
-else
- amount=$3
-fi
+[ -z $3 ] && read -p "Amount (incl. denom) ? " amount || amount=$3
 
-#amount=$(echo $amount | awk '{print  $1 * 1000000}' )ubbn
-
-pryzmd tx bank send $from $to $amount \
+echo $PWD | pryzmd tx bank send $from $to $amount \
    --gas-prices 0.1upryzm --gas-adjustment 1.5 --gas auto -y
