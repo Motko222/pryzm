@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FOLDER=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
-source ~/scripts/$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')/config/env
+source ~/scripts/$FOLDER/config/env
 
 if [ -z $1 ]
 then
