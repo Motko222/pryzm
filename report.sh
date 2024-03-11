@@ -23,8 +23,8 @@ balance=$(pryzmd query bank balances $wallet -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount | awk '{print $1/1000000}')
 active=$(pryzmd query tendermint-validator-set | grep -c $pubkey)
 threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
-bucket=$PRYZM_BUCKET
-id=$PRYZM_MONIKER
+bucket=validator
+id=pryzm-$PRYZM_ID
 moniker=$PRYZM_MONIKER
 project=pryzm
 
@@ -82,6 +82,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-    status,machine=$MACHINE,project=$project,moniker=$moniker status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",votingPower=\"$votingPower\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\" $(date +%s%N) 
+    status,machine=$MACHINE,id=$id,moniker=$moniker status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",votingPower=\"$votingPower\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\" $(date +%s%N) 
     "
 fi
