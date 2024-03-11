@@ -30,22 +30,22 @@ project=pryzm
 
 if $catchingUp
  then 
-  status="warning"
-  message="syncing, height=$latestBlock"
+  status="syncing"
+  message="height=$latestBlock"
  else 
-  status="ok"
+  if [ $active -eq 1 ]; then status=active; else status=inactive; fi
   #message="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
 fi
 
 if $jailed
  then
-  status="warning"
-  message="jailed"
+  status="jailed"
+  #message="jailed"
 fi 
 
 if [ -z $pid ];
-then status="error";
- message="not running";
+then status="offline";
+ message="process not running";
 fi
 
 echo "updated='$(date +'%y-%m-%d %H:%M')'"
