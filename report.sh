@@ -34,7 +34,7 @@ if $catchingUp
   message="height=$latestBlock"
  else 
   status="ok"
-  note="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
+  message="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
 fi
 
 if $jailed
@@ -82,9 +82,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-    status,node=$id,machine=$MACHINE,project=$project,moniker=$moniker 
-    status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",
-    votingPower=\"$votingPower\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\",
-    $(date +%s%N) 
+    status,node=$id,machine=$MACHINE,project=$project,moniker=$moniker status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",votingPower=\"$votingPower\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\" $(date +%s%N) 
     "
 fi
