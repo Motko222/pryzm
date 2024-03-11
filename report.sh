@@ -1,19 +1,19 @@
 #!/bin/bash
 
-source ~/scripts/pryzm/config/env
+source ~/.bash_profile
 json=$(curl -s localhost:26657/status | jq .result.sync_info)
 
 pid=$(pgrep pryzmd)
 ver=$(pryzmd version)
-network=$(pryzmd status | jq -r .NodeInfo.network)
+chain=$(pryzmd status | jq -r .NodeInfo.network)
 type="validator"
 foldersize1=$(du -hs ~/.pryzm | awk '{print $1}')
 #foldersize2=$(du -hs ~/pryzm | awk '{print $1}')
 latestBlock=$(echo $json | jq -r .latest_block_height)
 catchingUp=$(echo $json | jq -r .catching_up)
 votingPower=$(pryzmd status 2>&1 | jq -r .ValidatorInfo.VotingPower)
-wallet=$(echo $PWD | pryzmd keys show $KEY -a)
-valoper=$(echo $PWD | pryzmd keys show $KEY -a --bech val)
+wallet=$(echo $PRYZM_PWD | pryzmd keys show $PRYZM_KEY -a)
+valoper=$(echo $PRYZM_PWD | pryzmd keys show $PRYZM_KEY -a --bech val)
 pubkey=$(pryzmd tendermint show-validator --log_format json | jq -r .key)
 delegators=$(pryzmd query staking delegations-to $valoper -o json | jq '.delegation_responses | length')
 jailed=$(pryzmd query staking validator $valoper -o json | jq -r .jailed)
@@ -23,11 +23,15 @@ balance=$(pryzmd query bank balances $wallet -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="upryzm")' | jq -r .amount | awk '{print $1/1000000}')
 active=$(pryzmd query tendermint-validator-set | grep -c $pubkey)
 threshold=$(pryzmd query tendermint-validator-set -o json | jq -r .validators[].voting_power | tail -1)
+bucket=$PRYZM_BUCKET
+id=$PRYZM_MONIKER
+moniker=$PRYZM_MONIKER
+project=pryzm
 
 if $catchingUp
  then 
   status="warning"
-  note="height=$latestBlock"
+  message="height=$latestBlock"
  else 
   status="ok"
   note="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
@@ -36,26 +40,26 @@ fi
 if $jailed
  then
   status="warning"
-  note="jailed"
+  message="jailed"
 fi 
 
 if [ -z $pid ];
 then status="error";
- note="not running";
+ message="not running";
 fi
 
 echo "updated='$(date +'%y-%m-%d %H:%M')'"
 echo "version='$ver'"
 echo "process='$pid'"
 echo "status="$status
-echo "note='$note'"
-echo "network='$network'"
+echo "message='$message'"
+echo "chain='$chain'"
 echo "type="$type
 echo "folder1=$foldersize1"
 #echo "folder2=$foldersize2"
 #echo "log=$logsize" 
-echo "id=$MONIKER" 
-echo "key=$KEY"
+echo "id=$id" 
+echo "key=$PRYZM_KEY"
 echo "wallet=$wallet"
 echo "valoper=$valoper"
 echo "pubkey=$pubkey"
@@ -68,3 +72,19 @@ echo "tokens=$tokens"
 echo "threshold=$threshold"
 echo "delegators=$delegators"
 echo "balance=$balance"
+
+# send data to influxdb
+if [ ! -z $INFLUX_HOST ]
+then
+ curl --request POST \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$bucket&precision=ns" \
+  --header "Authorization: Token $INFLUX_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "
+    status,node=$id,machine=$MACHINE,project=$project,moniker=$moniker 
+    status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",
+    votingPower=\"$votingPower\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\",
+    $(date +%s%N) 
+    "
+fi
