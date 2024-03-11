@@ -31,10 +31,10 @@ project=pryzm
 if $catchingUp
  then 
   status="warning"
-  message="height=$latestBlock"
+  message="syncing, height=$latestBlock"
  else 
   status="ok"
-  message="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
+  #message="act $active | del $delegators | vp $tokens | thr $threshold | bal $balance"
 fi
 
 if $jailed
