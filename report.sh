@@ -4,7 +4,7 @@ source ~/.bash_profile
 json=$(curl -s localhost:26657/status | jq .result.sync_info)
 
 pid=$(pgrep pryzmd)
-ver=$(pryzmd version)
+version=$(pryzmd version)
 chain=$(pryzmd status | jq -r .NodeInfo.network)
 type="validator"
 foldersize1=$(du -hs ~/.pryzm | awk '{print $1}')
@@ -49,7 +49,7 @@ then status="offline";
 fi
 
 echo "updated='$(date +'%y-%m-%d %H:%M')'"
-echo "version='$ver'"
+echo "version='$version'"
 echo "process='$pid'"
 echo "status="$status
 echo "message='$message'"
