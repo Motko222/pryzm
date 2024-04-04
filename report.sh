@@ -2,7 +2,7 @@
 
 source ~/.bash_profile
 json=$(curl -s localhost:26657/status | jq .result.sync_info)
-
+ 
 pid=$(pgrep pryzmd)
 version=$(pryzmd version)
 chain=$(pryzmd status | jq -r .NodeInfo.network)
